@@ -6,11 +6,12 @@ function App() {
   const [tareas, setTareas] = useState([])
   const [modoEdicion, setmodoEdicion] = useState(false)
   const [id, setId] = useState('')
+  const [error, setError] = useState(null)
 
   const agregarTarea = e => {
     e.preventDefault()
     if(!tarea.trim()){
-      console.log('Indicar una tarea')
+      setError('Indicar una tarea')
       return
     }
     setTareas([...tareas, {id: nanoid(), nombreTarea: tarea}])
@@ -78,6 +79,9 @@ function App() {
               }
             </h2>
             <form onSubmit={modoEdicion ? editarTarea : agregarTarea}>
+              {
+                error ? (<span className="text-danger"> {error} </span>) : null
+              }
               <input 
                 type="text" 
                 className="form-control mb-2" 
